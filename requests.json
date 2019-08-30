@@ -1,0 +1,78 @@
+{ 
+    "requisitionsTestList": [
+        {
+            "requestTest": {
+                "method": "Post",
+                "path": "/home",
+                "headers": null,
+                "body": {
+                    "a":"b",
+                    "c":"s"
+                }
+            },
+            "responseTest": {
+                
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GEt",
+                "path": "https://api.postmon.com.br/v1/cep/58400444",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body": {
+                    "bairro": "São José",
+                    "cidade": "Campina Grande",
+                    "logradouro": "Rua Doutor Agra",
+                    "estado_info": {
+                    "area_km2": "56.468,427",
+                    "codigo_ibge": "25",
+                    "nome": "Paraíba"
+                    },
+                    "cep": "58400444",
+                    "cidade_info": {
+                    "area_km2": "593,026",
+                    "codigo_ibge": "2504009"
+                    },
+                    "estado": "PB"
+                }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "Delete",
+                "path": "/home",
+                "headers": null,
+                "body": {
+                    "a":"b",
+                    "c":"s"
+                }
+            },
+            "responseTest": {
+                
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "pUt",
+                "path": "/home",
+                "headers": null,
+                "body": {
+                    "a":"b",
+                    "c":"s"
+                }
+            },
+            "responseTest": {
+                
+            }
+
+        }
+    
+    ]
+}
