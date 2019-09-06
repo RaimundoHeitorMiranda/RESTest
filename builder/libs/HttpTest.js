@@ -26,52 +26,39 @@ var HTTP = /** @class */ (function () {
     HTTP.GET = function (req) {
         var _this = this;
         request.get(req.requestTest.path, function (error, response) {
-            _this.verifyTest(req, error, response);
+            _this.verifyTest(req.responseTest, error, response);
         });
     };
     HTTP.POST = function (req) {
+        var _this = this;
         request.post(req.requestTest.path, req.requestTest.body, function (error, response) {
-            if (!error) {
-                console.log("status: ", response.statusCode, req.responseTest.httpStatus);
-                console.log("Status confere?:", Comparator_1.Comparator.httpStatusComparator(response, req.responseTest));
-                console.log("Body: ", response.body, "BodyTest: ", req.responseTest.body);
-                console.log("Body Confere?: ", Comparator_1.Comparator.bodyComparator(response, req.responseTest));
-            }
-            else {
-                console.log("Error na requisição:" + req.requestTest.method + " - " + req.requestTest.path);
-            }
+            _this.verifyTest(req.responseTest, error, response);
         });
     };
     HTTP.PUT = function (req) {
+        var _this = this;
         request.post(req.requestTest.path, req.requestTest.body, function (error, response) {
-            if (!error) {
-                console.log("status: ", response.statusCode, req.responseTest.httpStatus);
-                console.log("Status confere?:", Comparator_1.Comparator.httpStatusComparator(response, req.responseTest));
-                console.log("Body: ", response.body, "BodyTest: ", req.responseTest.body);
-                console.log("Body Confere?: ", Comparator_1.Comparator.bodyComparator(response, req.responseTest));
-            }
-            else {
-                console.log("Error na requisição:" + req.requestTest.method + " - " + req.requestTest.path);
-            }
+            _this.verifyTest(req.responseTest, error, response);
         });
     };
     HTTP.DELETE = function (req) {
         var _this = this;
         request.post(req.requestTest.path, req.requestTest.body, function (error, response) {
-            _this.verifyTest(req, error, response);
+            _this.verifyTest(req.responseTest, error, response);
         });
     };
-    HTTP.verifyTest = function (req, error, response) {
+    HTTP.verifyTest = function (responseTest, error, responseClient) {
         if (!error) {
-            console.log("status: ", response.statusCode, req.responseTest.httpStatus);
-            console.log("Status confere?:", Comparator_1.Comparator.httpStatusComparator(response, req.responseTest));
-            console.log("Body: ", response.body, "BodyTest: ", req.responseTest.body);
-            console.log("Body Confere?: ", Comparator_1.Comparator.bodyComparator(response, req.responseTest));
+            console.log("status: ", responseClient.statusCode, responseTest.httpStatus);
+            console.log("Status confere?:", Comparator_1.Comparator.httpStatusComparator(responseClient, responseTest));
+            console.log("Body: ", responseClient.body, "BodyTest: ", responseTest.body);
+            // console.log("Body Confere?: " ,Comparator.JsonComparator(responseClient,responseTest,));
         }
         else {
-            console.log("Error na requisição:" + req.requestTest.method + " - " + req.requestTest.path);
+            console.log("Error na requisição:" + error + " - " + responseClient);
         }
     };
     return HTTP;
 }());
 exports.HTTP = HTTP;
+//# sourceMappingURL=HttpTest.js.map

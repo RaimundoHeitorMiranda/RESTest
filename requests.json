@@ -46,7 +46,7 @@
         {
             "requestTest": {
                 "method": "Delete",
-                "path": "/home",
+                "path": "http://www.teste.com/home",
                 "headers": null,
                 "body": {
                     "a":"b",

@@ -39,3 +39,16 @@ var HttpMethod;
     HttpMethod["DELETE"] = "DELETE";
     HttpMethod["POST"] = "POST";
 })(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
+var Result = /** @class */ (function () {
+    function Result(attributeExtra, attributeMissing, valuesDiff) {
+        this.attributeExtra = [];
+        this.attributeMissing = [];
+        this.valuesDiff = [];
+        this.attributeExtra = attributeExtra;
+        this.attributeMissing = attributeMissing;
+        this.valuesDiff = valuesDiff;
+    }
+    return Result;
+}());
+exports.Result = Result;
+//# sourceMappingURL=Models.js.map

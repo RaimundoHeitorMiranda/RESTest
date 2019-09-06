@@ -1,5 +1,5 @@
 import request = require('request');
-import { HttpTest, HttpMethod } from './Models';
+import { HttpTest, HttpMethod, ResponseTest } from './Models';
 import { Comparator } from './Comparator';
 import { Response } from "request/index";
 
@@ -23,36 +23,36 @@ export class HTTP {
 
     private static GET (req: HttpTest) {
         request.get(req.requestTest.path, (error, response) => {
-            this.verifyTest(req ,error, response);
+            this.verifyTest(req.responseTest ,error, response);
         });
     }
 
     private static POST (req: HttpTest) {
         request.post(req.requestTest.path, req.requestTest.body, (error, response) => {
-            this.verifyTest(req, error , response);
+            this.verifyTest(req.responseTest, error , response);
         });
     }
 
     private static PUT (req: HttpTest) {
         request.post(req.requestTest.path, req.requestTest.body, (error, response) => {
-            this.verifyTest(req, error , response);
+            this.verifyTest(req.responseTest, error , response);
         });
     }
 
     private static DELETE (req: HttpTest) {
         request.post(req.requestTest.path, req.requestTest.body, (error, response) => {
-            this.verifyTest(req, error, response);
+            this.verifyTest(req.responseTest, error, response);
         });
     }
 
-    private static verifyTest(req : HttpTest, error: any, response: Response) {
+    private static verifyTest(responseTest : ResponseTest, error: any, responseClient: Response) {
         if(!error){
-            console.log("status: ",response.statusCode, req.responseTest.httpStatus);
-            console.log("Status confere?:", Comparator.httpStatusComparator(response,req.responseTest));
-            console.log("Body: ",response.body,"BodyTest: ", req.responseTest.body);
-            console.log("Body Confere?: " ,Comparator.bodyComparator(response,req.responseTest));
+            console.log("status: ",responseClient.statusCode, responseTest.httpStatus);
+            console.log("Status confere?:", Comparator.httpStatusComparator(responseClient,responseTest));
+            console.log("Body: ",responseClient.body,"BodyTest: ", responseTest.body);
+            // console.log("Body Confere?: " ,Comparator.JsonComparator(responseClient,responseTest,));
         }else{
-            console.log("Error na requisição:" + req.requestTest.method + " - " + req.requestTest.path );
+            console.log("Error na requisição:" + error + " - " + responseClient );
         }
     }
 

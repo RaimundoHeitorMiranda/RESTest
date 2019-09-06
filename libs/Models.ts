@@ -46,3 +46,15 @@ export enum HttpMethod {
     DELETE = "DELETE",
     POST = "POST"
 }
+
+export class Result {
+    attributeExtra: string[] = [];
+    attributeMissing: string[] = [];
+    valuesDiff: string[] = [];
+
+    constructor(attributeExtra: string[],attributeMissing: string[], valuesDiff: string[]){
+        this.attributeExtra = attributeExtra;
+        this.attributeMissing = attributeMissing;
+        this.valuesDiff = valuesDiff;
+    }
+}
