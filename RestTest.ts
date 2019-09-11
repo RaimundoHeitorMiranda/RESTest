@@ -45,15 +45,15 @@ function init(){
                 "vOffset": 250,
                 "alignment": "center"
             },
-            "texto": {
+            "text": {
                 "data": "Click Here",
                 "size": 36,
                 "style": "bold",
                 "name": "text1",
                 "hOffset": 250,
                 "vOffset": 100,
-                "alignment": "center",
-                "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+                "alignment": ["1","2","3","4"],
+                "onMouseUp": ["1","2","3"]
             }
         }
     }    
@@ -64,8 +64,8 @@ function init(){
             "window": {
                 "title": "Sample Konfabulator Widget1",
                 "name": "main_window2",
-                "width": "asasa",
-                "height": 501
+                "width": 500,
+                "height": 500
             },
             "image": { 
                 "src": "Images/Sun.png",
@@ -81,8 +81,8 @@ function init(){
                 "name": "text1",
                 "hOffset": 250,
                 "vOffset": 100,
-                "alignment": "center",
-                "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+                "alignment": ["1","2","3",4],
+                "onMouseUp": ["1","2","5"]
             }
         }
     }    
