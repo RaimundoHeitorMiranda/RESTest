@@ -2,74 +2,182 @@
     "requisitionsTestList": [
         {
             "requestTest": {
-                "method": "Post",
-                "path": "/home",
-                "headers": null,
-                "body": {
-                    "a":"b",
-                    "c":"s"
-                }
+                "method": "GET",
+                "path": "http://localhost:3000/produtos",
+                "headers": null
             },
             "responseTest": {
-                
+                "httpStatus":"200",
+                "body": [
+                    {
+                      "id": 1,
+                      "nome": "Hambúrguer",
+                      "descricao": "Pão, bife de hambúrguer 90g, salada e batata.",
+                      "preco": 8.5,
+                      "categoria_id": 1
+                    },
+                    {
+                      "id": 2,
+                      "nome": "X-Búrguer",
+                      "descricao": "Pão, bife de hambúrguer 90g, 1 fatia de queijo, salada e batata.",
+                      "preco": 10.5,
+                      "categoria_id": 1
+                    },
+                    {
+                      "id": 3,
+                      "nome": "X-Bacon",
+                      "descricao": "Pão, bife de hambúrguer 90g, 1 fatia de queijo, 2 fatia de bacon, salada e batata.",
+                      "preco": 12.5,
+                      "categoria_id": 1
+                    },
+                    {
+                      "id": 4,
+                      "nome": "X-Tudo",
+                      "descricao": "Pão, 2 bifes de hambúrguer 900g, 2 fatias de queijo, 4 fatias de bacon, salada e batata.",
+                      "preco": 14.5,
+                      "categoria_id": 1
+                    },
+                    {
+                      "id": 5,
+                      "nome": "Coca cola 360ml",
+                      "descricao": "",
+                      "preco": 5.5,
+                      "categoria_id": 2
+                    },
+                    {
+                      "id": 6,
+                      "nome": "Coca cola 600ml",
+                      "descricao": "",
+                      "preco": 7.5,
+                      "categoria_id": 2
+                    }
+                ]
             }
 
         },
         {
             "requestTest": {
-                "method": "GEt",
-                "path": "https://api.postmon.com.br/v1/cep/58400444",
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/986",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"404",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/6",
                 "headers": null,
                 "body": null
             },
             "responseTest": {
                 "httpStatus":"200",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/5",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/4",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/3",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "http://localhost:3000/produtos/2",
+                "headers": null,
+                "body": null
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":null
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "POST",
+                "path": "http://localhost:3000/produtos",
+                "headers": null,
                 "body": {
-                    "bairro": "São José",
-                    "cidade": "Campina Grande",
-                    "logradouro": "Rua Doutor Agra",
-                    "estado_info": {
-                    "area_km2": "56.468,427",
-                    "codigo_ibge": "25",
-                    "nome": "Paraíba"
-                    },
-                    "cep": "58400444",
-                    "cidade_info": {
-                    "area_km2": "593,026",
-                    "codigo_ibge": "2504009"
-                    },
-                    "estado": "PB"
+                    "nome": "Marmita",
+                    "descricao": "Arroz,feijão e carne",
+                    "preco": 9.5,
+                    "categoria_id": 1
+                }
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body": {
+                    "id":2,
+                    "nome": "Marmita",
+                    "descricao": "Arroz,feijão e carne",
+                    "preco": 9.5,
+                    "categoria_id": 1
                 }
             }
 
         },
         {
             "requestTest": {
-                "method": "Delete",
-                "path": "http://www.teste.com/home",
+                "method": "PUT",
+                "path": "http://localhost:3000/produtos/1",
                 "headers": null,
                 "body": {
-                    "a":"b",
-                    "c":"s"
+                    "nome": "TApioca",
+                    "descricao": "Tapioca com queijo",
+                    "preco": 2.5,
+                    "categoria_id": 1
                 }
             },
             "responseTest": {
-                
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "pUt",
-                "path": "/home",
-                "headers": null,
-                "body": {
-                    "a":"b",
-                    "c":"s"
+                "httpStatus":"200",
+                "body":{
+                    "id":1,
+                    "nome": "TApioca",
+                    "descricao": "Tapioca com queijos",
+                    "preco": 2.5,
+                    "categoria_id": 1
                 }
-            },
-            "responseTest": {
-                
             }
 
         }

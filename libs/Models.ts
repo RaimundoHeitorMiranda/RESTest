@@ -48,13 +48,21 @@ export enum HttpMethod {
 }
 
 export class Result {
+    valid: boolean = true;
+    request_verb_path?: string;
+    request_error?: any;
+    status_ok?: boolean;
+    status_diff?:string;
+    other?:string[];
+    body_ok?: boolean;
     attributeExtra: string[] = [];
     attributeMissing: string[] = [];
     valuesDiff: string[] = [];
 
-    constructor(attributeExtra: string[],attributeMissing: string[], valuesDiff: string[]){
-        this.attributeExtra = attributeExtra;
-        this.attributeMissing = attributeMissing;
-        this.valuesDiff = valuesDiff;
+    constructor(){
+        this.request_verb_path = '';
+        this.attributeExtra = [];
+        this.attributeMissing = [];
+        this.valuesDiff = [];
     }
 }

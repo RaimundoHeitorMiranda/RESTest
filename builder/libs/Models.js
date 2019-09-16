@@ -40,13 +40,15 @@ var HttpMethod;
     HttpMethod["POST"] = "POST";
 })(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
 var Result = /** @class */ (function () {
-    function Result(attributeExtra, attributeMissing, valuesDiff) {
+    function Result() {
+        this.valid = true;
         this.attributeExtra = [];
         this.attributeMissing = [];
         this.valuesDiff = [];
-        this.attributeExtra = attributeExtra;
-        this.attributeMissing = attributeMissing;
-        this.valuesDiff = valuesDiff;
+        this.request_verb_path = '';
+        this.attributeExtra = [];
+        this.attributeMissing = [];
+        this.valuesDiff = [];
     }
     return Result;
 }());

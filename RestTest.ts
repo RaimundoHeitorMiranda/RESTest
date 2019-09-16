@@ -1,96 +1,106 @@
 import  File_Reader from './libs/File_Reader';
-import { RequisitionsTestFile } from './libs/Models';
 import { HTTP } from './libs/HttpTest';
-import { Comparator } from './libs/Comparator';
+import { Result, HttpTest } from './libs/Models';
 // Tratamento de erro, erro para o professor, erro para o aluno
 
-function init(){
 
-    if(false ) {
-        // read files config
-        var fr = new File_Reader();
+export class RestTest {
+
+    private static resultList: Result[] = [];
+    private static testList: HttpTest[] = [];
+
+    constructor(){
+
+    }
     
-        // get all resquests to test
-        var a: RequisitionsTestFile = fr.getRequisitionsFile();
+    public static async init() : Promise<Result[]> {
+    
+        console.log("1-buscar arquivo");
         
-        // for each request test, run HttpTest
-        a.requisitionsTestList.forEach(req => {
-            HTTP.Test(req);        
-        });
+        await File_Reader.loadRequisitionsTests()
+        .then(
+            result => {
+                console.log("2-Leu arquivo");
+                this.testList = result.requisitionsTestList;          
+            },
+            error =>{
+                console.log("-----------------ERROR: ",error);
+                throw error
+            }
+        );
+        console.log("3-Terminou de ler os arquivos");
+        
+        console.log("3- rodar os testes");
+        
+        await this.runTests(this.testList).then(
+            result => {
+                console.log("4 -Terminouuuu!! os testes", result);
+            },
+            error =>{
+                console.log("-----------------ERROR: ",error);
+                throw error
+            }
+        );
+
+        await setTimeout(() => {
+            console.log(5000,"5 segundos dentro do init");
+            
+        }, 5000);
+    
+        console.log(51,"5 ---------------------Deve esperar as promisses para terminar");
+        
+        return this.resultList;
+    
+        
     }
 
-    
-    // request.get('https://api.postmon.com.br/v1/cep/58400444', (err,response,body) => {
-    //     if(!err){
-    //         console.log("status: ",response.statusCode);
-    //         console.log("reader: ", response.headers);
-    //         console.log("response body: ",response.body);
-    //         console.log("body: " ,body);
-    //     }
-    // });
-
-    var obj1 = {
-        "widget": {
-            "debug": "on1",
-            "window": {
-                "title": "Sample Konfabulator Widget",
-                "name": "main_window",
-                "width": 500,
-                "height": 500
-            },
-            "image": { 
-                "srcs": "Images/Sun.img",
-                "name": "sun1",
-                "hOffset": 250,
-                "vOffset": 250,
-                "alignment": "center"
-            },
-            "text": {
-                "data": "Click Here",
-                "size": 36,
-                "style": "bold",
-                "name": "text1",
-                "hOffset": 250,
-                "vOffset": 100,
-                "alignment": ["1","2","3","4"],
-                "onMouseUp": ["1","2","3"]
+    private static runTests(testsList: HttpTest[]): Promise<any> {
+        return new Promise(async resolve => {
+            console.log("T1- COmecou os testes");
+            
+            for (let index = 0; index < testsList.length; index++) {
+                const element = testsList[index];
+                console.log(23,"T2------request: ",element);
+                
+                await HTTP.Test(element)
+                .then(
+                    result => {
+                        
+                        console.log(29,"T3-------------result: ",result);
+                        this.resultList.push(result);
+                    },
+                    error =>{
+                        console.log("-----------------ERROR: ",error);
+                        
+                    }
+                );
+                console.log(38, "T4--------executar depois de cada teste -----------");
+                
             }
-        }
-    }    
-
-    var obj2 = {
-        "widget": {
-            "debug": "on",
-            "window": {
-                "title": "Sample Konfabulator Widget1",
-                "name": "main_window2",
-                "width": 500,
-                "height": 500
-            },
-            "image": { 
-                "src": "Images/Sun.png",
-                "name": "sun1",
-                "hOffset": 250,
-                "vOffset": 250,
-                "alignment": "center1"
-            },
-            "text": {
-                "datas": "Click Here",
-                "size": 36,
-                "style": "bold2",
-                "name": "text1",
-                "hOffset": 250,
-                "vOffset": 100,
-                "alignment": ["1","2","3",4],
-                "onMouseUp": ["1","2","5"]
-            }
-        }
-    }    
-
-    let comparator = new Comparator();
-    comparator.BodyComparator(obj1, obj2);
-    
+            console.log("T5- terminou os testes");
+            
+            resolve(null);
+        });
+    }
 }
-    
 
-init();
+RestTest.init().then(
+    result =>{
+        console.log(62,"-------------List de resultado", result);
+        let show: string = "";
+        result.forEach(result => {
+            if(result.valid){
+                show = show + ".";
+            } else if(result.request_error){
+                show = show + "E";
+            } else if(result.other){
+                show = show + "?";
+            }else {
+                show = show + "F";
+            }
+        }) 
+        console.log(show);
+        
+    }
+    
+);

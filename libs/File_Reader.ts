@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFile } from 'fs';
 import { RequisitionsTestFile, HttpMethod, HttpTest, RequestTest } from './Models';
 
 
@@ -10,41 +10,43 @@ import { RequisitionsTestFile, HttpMethod, HttpTest, RequestTest } from './Model
  *  */
 export default class File_Reader {
 
-    // the object test containing all tests.
-    private requisitionsTestFile : RequisitionsTestFile;
 
     // the path of file.
-    private filepath: string = `./requests.json`;
+    private static filepath: string = `./requests.json`;
      
     public constructor(){
-        try {
-            this.requisitionsTestFile = JSON.parse(readFileSync(this.filepath, "ascii"));
-            this.configRequestFile();
-        } catch (error) {
-            throw new Error("not possible read request file config, complete error: " + error)
-        }
+        
     }
 
-    private configRequestFile(){  
-        this.verifyRequestTestListFile();
-        // this.printFileConfig();
+    public static loadRequisitionsTests(): Promise<RequisitionsTestFile>{
+        return new Promise(async resolve => {
+            let requisitionsTestFile: RequisitionsTestFile = new RequisitionsTestFile([]);
+            await readFile(this.filepath, "utf-8",async (error,data) => {
+                requisitionsTestFile = await JSON.parse(data);
+                await this.verifyRequestTestListFile(requisitionsTestFile);
+                resolve(requisitionsTestFile);
+                if(error){
+                    throw new Error("not possible read request file config, complete error: " + error)
+                }
+            })
+        });
     }
 
-    private verifyRequestTestListFile() {
+    private static verifyRequestTestListFile(requisitionsTestFile: RequisitionsTestFile) {
         // vefirica se possui requisicoes
-        if(this.requisitionsTestFile.requisitionsTestList == undefined || this.requisitionsTestFile.requisitionsTestList == null){
+        if(requisitionsTestFile.requisitionsTestList == undefined || requisitionsTestFile.requisitionsTestList == null){
             throw new Error("The request testes is not defined, please define requestTest in file.");
-        }else if(this.requisitionsTestFile.requisitionsTestList.length === 0){
+        }else if(requisitionsTestFile.requisitionsTestList.length === 0){
             throw new Error("No tests defined, please create some tests.");
         }else {
-            this.requisitionsTestFile.requisitionsTestList.forEach(requesition => {
+            requisitionsTestFile.requisitionsTestList.forEach(requesition => {
                 this.verifyRestTest(requesition);
             })
         }
     }
 
 
-    private verifyRestTest(httpTest: HttpTest) {
+    private static verifyRestTest(httpTest: HttpTest) {
         if(httpTest.requestTest == null || httpTest.requestTest == undefined){
             throw new Error("The request file is wrong!");
         }else{
@@ -56,7 +58,7 @@ export default class File_Reader {
         }
     }
 
-    private verifiyRequestTest(requestTest: RequestTest) {
+    private static verifiyRequestTest(requestTest: RequestTest) {
         // verifica se possui verbo
         if(requestTest.method == undefined || requestTest.method == null){
             throw new Error("The request verb is wrong");
@@ -70,7 +72,7 @@ export default class File_Reader {
     }
 
 
-    private convertHttpMethod(method: string): HttpMethod {
+    private static convertHttpMethod(method: string): HttpMethod {
         method = method.toLocaleUpperCase();
 
         if(method === HttpMethod.GET.toLocaleUpperCase()){
@@ -87,17 +89,17 @@ export default class File_Reader {
         
     } 
 
-    public printFileConfig() : void {
-        console.log("List of requets for testes:",this.requisitionsTestFile.requisitionsTestList);
-        this.requisitionsTestFile.requisitionsTestList.forEach(requisition => {
+    public static printFileConfig(requisitionsTestFile: RequisitionsTestFile) {
+        console.log("List of requets for testes:",requisitionsTestFile.requisitionsTestList);
+        requisitionsTestFile.requisitionsTestList.forEach(requisition => {
             console.log("Request: ", requisition.requestTest);
             console.log("Response: ", requisition.responseTest);
             
         })
     }
 
-    public getRequisitionsFile(): RequisitionsTestFile {
-        return this.requisitionsTestFile;
+    public getRequisitionsFile(requisitionsTestFile: RequisitionsTestFile): RequisitionsTestFile {
+        return requisitionsTestFile;
     }
     
 }
