@@ -3,7 +3,7 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "http://localhost:3000/produtos",
+                "path": "/produtos",
                 "headers": null
             },
             "responseTest": {
@@ -58,7 +58,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/986",
+                "path": "/produtos/986",
                 "headers": null,
                 "body": null
             },
@@ -71,7 +71,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/6",
+                "path": "/produtos/6",
                 "headers": null,
                 "body": null
             },
@@ -84,7 +84,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/5",
+                "path": "/produtos/5",
                 "headers": null,
                 "body": null
             },
@@ -97,7 +97,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/4",
+                "path": "/produtos/4",
                 "headers": null,
                 "body": null
             },
@@ -110,7 +110,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/3",
+                "path": "/produtos/3",
                 "headers": null,
                 "body": null
             },
@@ -123,7 +123,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "http://localhost:3000/produtos/2",
+                "path": "/produtos/2",
                 "headers": null,
                 "body": null
             },
@@ -136,7 +136,7 @@
         {
             "requestTest": {
                 "method": "POST",
-                "path": "http://localhost:3000/produtos",
+                "path": "/produtos",
                 "headers": null,
                 "body": {
                     "nome": "Marmita",
@@ -160,7 +160,7 @@
         {
             "requestTest": {
                 "method": "PUT",
-                "path": "http://localhost:3000/produtos/1",
+                "path": "/produtos/1",
                 "headers": null,
                 "body": {
                     "nome": "TApioca",

@@ -1,0 +1,17 @@
+{
+    "requestConfig":{
+        "server":"http://localhost",
+        "port":"3000",
+        "headers": {}
+    },
+    "securityConfig":{
+        "pathLogin":"/login",
+        "userLogin":"admin",
+        "passwordLogin":"admin",
+        "headerKey":"authorization"
+    },
+    "appConfig":{
+        "detail":false
+    }
+
+}

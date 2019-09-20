@@ -1,32 +1,51 @@
 import { readFile } from 'fs';
-import { RequisitionsTestFile, HttpMethod, HttpTest, RequestTest } from './Models';
+import { RequisitionsTestFile, HttpMethod, HttpTest, RequestTest, Config } from './Models';
 
 
 /**
  * PT_BR: Esta classe tem como objetivo ler o arquivo Json com todos os testes e
  * converter em um objeto de testes do TSTest.
  * 
- * ENG: This class aims read json file containing all tests and convert to TSTest object test.
+ * ENG: This class aims read json file containing all tests and convert to TSTest object test,
+ * and read config file too.
  *  */
 export default class File_Reader {
 
 
-    // the path of file.
-    private static filepath: string = `./requests.json`;
-     
+    // the path of files.
+    private static fileTestPath: string = `./requests.json`;
+    private static fileConfigPath: string =`./config.json`; 
+
     public constructor(){
         
     }
 
+    // This method read file testes, verify and convert to tests objctes.
     public static loadRequisitionsTests(): Promise<RequisitionsTestFile>{
         return new Promise(async resolve => {
             let requisitionsTestFile: RequisitionsTestFile = new RequisitionsTestFile([]);
-            await readFile(this.filepath, "utf-8",async (error,data) => {
+            await readFile(this.fileTestPath, "utf-8",async (error,data) => {
                 requisitionsTestFile = await JSON.parse(data);
                 await this.verifyRequestTestListFile(requisitionsTestFile);
                 resolve(requisitionsTestFile);
                 if(error){
-                    throw new Error("not possible read request file config, complete error: " + error)
+                    throw new Error("not possible read request file config, complete error: " + error);
+                }
+            })
+        });
+    }
+
+    // This method read config file and converto to config object
+    public static loadConfig(): Promise<Config> {
+        return new Promise(async resolve => {
+            let config : Config;
+
+            await readFile(this.fileConfigPath,"utf-8", async (error,data)=> {
+                if(error){
+                    throw new Error("not possible read config file config, complete error: " + error);
+                }else {
+                    config = await JSON.parse(data);
+                    resolve(config)
                 }
             })
         });
@@ -101,6 +120,8 @@ export default class File_Reader {
     public getRequisitionsFile(requisitionsTestFile: RequisitionsTestFile): RequisitionsTestFile {
         return requisitionsTestFile;
     }
+
+
     
 }
  
