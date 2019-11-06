@@ -22,29 +22,28 @@ export default class File_Reader {
 
     // This method read file testes, verify and convert to tests objctes.
     public static loadRequisitionsTests(): Promise<RequisitionsTestFile>{
-        return new Promise(async resolve => {
+        return new Promise((resolve, reject) => {
             let requisitionsTestFile: RequisitionsTestFile = new RequisitionsTestFile([]);
-            await readFile(this.fileTestPath, "utf-8",async (error,data) => {
-                requisitionsTestFile = await JSON.parse(data);
-                await this.verifyRequestTestListFile(requisitionsTestFile);
+             readFile(this.fileTestPath, "utf-8", (error,data) => {
+                requisitionsTestFile =  JSON.parse(data);
+                 this.verifyRequestTestListFile(requisitionsTestFile);
                 resolve(requisitionsTestFile);
                 if(error){
-                    throw new Error("not possible read request file config, complete error: " + error);
+                    reject(new Error("not possible read request file config, complete error: " + error));
                 }
             })
         });
     }
 
-    // This method read config file and converto to config object
+    // This method read config file and convert to config object
     public static loadConfig(): Promise<Config> {
-        return new Promise(async resolve => {
+        return new Promise((resolve, reject) => {
             let config : Config;
-
-            await readFile(this.fileConfigPath,"utf-8", async (error,data)=> {
+            readFile(this.fileConfigPath,"utf-8", (error,data)=> {
                 if(error){
-                    throw new Error("not possible read config file config, complete error: " + error);
+                    reject(new Error("not possible read config file config, complete error: " + error));
                 }else {
-                    config = await JSON.parse(data);
+                    config = JSON.parse(data);
                     resolve(config)
                 }
             })
@@ -89,7 +88,6 @@ export default class File_Reader {
             throw new Error("The request path is wrong");
         }
     }
-
 
     private static convertHttpMethod(method: string): HttpMethod {
         method = method.toLocaleUpperCase();

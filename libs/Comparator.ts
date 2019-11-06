@@ -69,7 +69,7 @@ export class Comparator {
                 // verifica se é um array
                 if(responseTest[key] instanceof Array){
                     
-                    await this.comparateArrays(responseTest[key],response[key], errorResult, ownerPropertyName + "." + key)
+                    await this.comparateArrays(response[key],responseTest[key], errorResult, ownerPropertyName + "." + key)
                         .then( result => {
                             errorResult =  result;
                         }
@@ -110,7 +110,7 @@ export class Comparator {
             
         if(array1.length !== array2.length){
             errorResult.valid = false;
-            await errorResult.valuesDiff.push("Array: "+ ownerPropertyName + " have diferent lenght: " + array2.length + " is diferent of " + array1.length +"(expected)")
+            await errorResult.valuesDiff.push("Array: "+ ownerPropertyName + " have diferent lenght: " + array1.length + " is diferent of " + array2.length +"(expected)")
             return errorResult;
         
         }else {

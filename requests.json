@@ -3,184 +3,347 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "/produtos",
-                "headers": null
+                "path": "/client"
             },
             "responseTest": {
                 "httpStatus":"200",
-                "body": [
-                    {
-                      "id": 1,
-                      "nome": "Hambúrguer",
-                      "descricao": "Pão, bife de hambúrguer 90g, salada e batata.",
-                      "preco": 8.5,
-                      "categoria_id": 1
-                    },
-                    {
-                      "id": 2,
-                      "nome": "X-Búrguer",
-                      "descricao": "Pão, bife de hambúrguer 90g, 1 fatia de queijo, salada e batata.",
-                      "preco": 10.5,
-                      "categoria_id": 1
-                    },
-                    {
-                      "id": 3,
-                      "nome": "X-Bacon",
-                      "descricao": "Pão, bife de hambúrguer 90g, 1 fatia de queijo, 2 fatia de bacon, salada e batata.",
-                      "preco": 12.5,
-                      "categoria_id": 1
-                    },
-                    {
-                      "id": 4,
-                      "nome": "X-Tudo",
-                      "descricao": "Pão, 2 bifes de hambúrguer 900g, 2 fatias de queijo, 4 fatias de bacon, salada e batata.",
-                      "preco": 14.5,
-                      "categoria_id": 1
-                    },
-                    {
-                      "id": 5,
-                      "nome": "Coca cola 360ml",
-                      "descricao": "",
-                      "preco": 5.5,
-                      "categoria_id": 2
-                    },
-                    {
-                      "id": 6,
-                      "nome": "Coca cola 600ml",
-                      "descricao": "",
-                      "preco": 7.5,
-                      "categoria_id": 2
-                    }
-                ]
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/986",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"404",
-                "body":null
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/6",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"200",
-                "body":null
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/5",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"200",
-                "body":null
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/4",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"200",
-                "body":null
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/3",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"200",
-                "body":null
-            }
-
-        },
-        {
-            "requestTest": {
-                "method": "DELETE",
-                "path": "/produtos/2",
-                "headers": null,
-                "body": null
-            },
-            "responseTest": {
-                "httpStatus":"200",
-                "body":null
+                "body": {
+                    "data": [],
+                    "errors": []
+                  }
             }
 
         },
         {
             "requestTest": {
                 "method": "POST",
-                "path": "/produtos",
-                "headers": null,
-                "body": {
-                    "nome": "Marmita",
-                    "descricao": "Arroz,feijão e carne",
-                    "preco": 9.5,
-                    "categoria_id": 1
-                }
+                "path": "/client",
+                "content": {
+                    "addressCep": "string",
+                    "addressCity": "string",
+                    "addressNeighborhood": "string",
+                    "addressNumber": "string",
+                    "addressStreet": "string",
+                    "clientCpf": "284.239.830-05",
+                    "clientName": "string",
+                    "clientPhones": "string"
+                  }
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": {
+                      "id": 4,
+                      "clientName": "string",
+                      "clientCpf": "284.239.830-05",
+                      "clientPhones": "string",
+                      "addressCity": "string",
+                      "addressNumber": "string",
+                      "addressStreet": "string",
+                      "addressCep": "string",
+                      "addressNeighborhood": "string"
+                    },
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client"
             },
             "responseTest": {
                 "httpStatus":"200",
                 "body": {
-                    "id":2,
-                    "nome": "Marmita",
-                    "descricao": "Arroz,feijão e carne",
-                    "preco": 9.5,
-                    "categoria_id": 1
-                }
+                    "data": [
+                      {
+                        "id": 4,
+                        "clientName": "string",
+                        "clientCpf": "284.239.830-05",
+                        "clientPhones": "string",
+                        "addressCity": "string",
+                        "addressNumber": "string",
+                        "addressStreet": "string",
+                        "addressCep": "string",
+                        "addressNeighborhood": "string"
+                      }
+                    ],
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "POST",
+                "path": "/client",
+                "content": {
+                    "addressCep": "string2",
+                    "addressCity": "string2",
+                    "addressNeighborhood": "string2",
+                    "addressNumber": "string2",
+                    "addressStreet": "string2",
+                    "clientCpf": "700.623.560-03",
+                    "clientName": "string2",
+                    "clientPhones": "string2"
+                  }
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": {
+                      "id": 6,
+                      "clientName": "string2",
+                      "clientCpf": "700.623.560-03",
+                      "clientPhones": "string2",
+                      "addressCity": "string2",
+                      "addressNumber": "string2",
+                      "addressStreet": "string2",
+                      "addressCep": "string2",
+                      "addressNeighborhood": "string2"
+                    },
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body": {
+                    "data": [
+                      {
+                        "id": 4,
+                        "clientName": "string",
+                        "clientCpf": "284.239.830-05",
+                        "clientPhones": "string",
+                        "addressCity": "string",
+                        "addressNumber": "string",
+                        "addressStreet": "string",
+                        "addressCep": "string",
+                        "addressNeighborhood": "string"
+                      },
+                      {
+                        "id": 6,
+                        "clientName": "string2",
+                        "clientCpf": "700.623.560-03",
+                        "clientPhones": "string2",
+                        "addressCity": "string2",
+                        "addressNumber": "string2",
+                        "addressStreet": "string2",
+                        "addressCep": "string2",
+                        "addressNeighborhood": "string2"
+                      }
+                    ],
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client/4"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": {
+                      "id": 4,
+                      "clientName": "string",
+                      "clientCpf": "284.239.830-05",
+                      "clientPhones": "string",
+                      "addressCity": "string",
+                      "addressNumber": "string",
+                      "addressStreet": "string",
+                      "addressCep": "string",
+                      "addressNeighborhood": "string"
+                    },
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client/6"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": {
+                      "id": 6,
+                      "clientName": "string2",
+                      "clientCpf": "700.623.560-03",
+                      "clientPhones": "string2",
+                      "addressCity": "string2",
+                      "addressNumber": "string2",
+                      "addressStreet": "string2",
+                      "addressCep": "string2",
+                      "addressNeighborhood": "string2"
+                    },
+                    "errors": []
+                  }
             }
 
         },
         {
             "requestTest": {
                 "method": "PUT",
-                "path": "/produtos/1",
-                "headers": null,
-                "body": {
-                    "nome": "TApioca",
-                    "descricao": "Tapioca com queijo",
-                    "preco": 2.5,
-                    "categoria_id": 1
-                }
+                "path": "/client/4",
+                "content": {
+                    "addressCep": "string5",
+                    "addressCity": "string5",
+                    "addressNeighborhood": "string5",
+                    "addressNumber": "string5",
+                    "addressStreet": "string5",
+                    "clientCpf": "284.239.830-05",
+                    "clientName": "string5",
+                    "clientPhones": "string5"
+                  }
             },
             "responseTest": {
                 "httpStatus":"200",
                 "body":{
-                    "id":1,
-                    "nome": "TApioca",
-                    "descricao": "Tapioca com queijos",
-                    "preco": 2.5,
-                    "categoria_id": 1
-                }
+                    "data": {
+                      "id": 4,
+                      "clientName": "string5",
+                      "clientCpf": "284.239.830-05",
+                      "clientPhones": "string5",
+                      "addressCity": "string5",
+                      "addressNumber": "string5",
+                      "addressStreet": "string5",
+                      "addressCep": "string5",
+                      "addressNeighborhood": "string5"
+                    },
+                    "errors": []
+                  }
             }
 
-        }
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client/4"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": {
+                      "id": 4,
+                      "clientName": "string5",
+                      "clientCpf": "284.239.830-05",
+                      "clientPhones": "string5",
+                      "addressCity": "string5",
+                      "addressNumber": "string5",
+                      "addressStreet": "string5",
+                      "addressCep": "string5",
+                      "addressNeighborhood": "string5"
+                    },
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body": {
+                    "data": [
+                      {
+                        "id": 6,
+                        "clientName": "string2",
+                        "clientCpf": "700.623.560-03",
+                        "clientPhones": "string2",
+                        "addressCity": "string2",
+                        "addressNumber": "string2",
+                        "addressStreet": "string2",
+                        "addressCep": "string2",
+                        "addressNeighborhood": "string2"
+                      },
+                      {
+                        "id": 4,
+                        "clientName": "string5",
+                        "clientCpf": "284.239.830-05",
+                        "clientPhones": "string5",
+                        "addressCity": "string5",
+                        "addressNumber": "string5",
+                        "addressStreet": "string5",
+                        "addressCep": "string5",
+                        "addressNeighborhood": "string5"
+                      }
+                    ],
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "DELETE",
+                "path": "/client/4"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "data": null,
+                    "errors": []
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client/4"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body":{
+                    "status": 404,
+                    "error": "Not Found",
+                    "message": "Client de id: 4 não encontrado.",
+                    "path": "/client/4"
+                  }
+            }
+
+        },
+        {
+            "requestTest": {
+                "method": "GET",
+                "path": "/client"
+            },
+            "responseTest": {
+                "httpStatus":"200",
+                "body": {
+                    "data": [
+                      {
+                        "id": 6,
+                        "clientName": "string2",
+                        "clientCpf": "700.623.560-03",
+                        "clientPhones": "string2",
+                        "addressCity": "string2",
+                        "addressNumber": "string2",
+                        "addressStreet": "string2",
+                        "addressCep": "string2",
+                        "addressNeighborhood": "string2"
+                      }
+                    ],
+                    "errors": []
+                  }
+            }
+
+        }     
     
     ]
 }

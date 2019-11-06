@@ -1,12 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const Models_1 = require("./Models");
@@ -22,32 +14,32 @@ class File_Reader {
     }
     // This method read file testes, verify and convert to tests objctes.
     static loadRequisitionsTests() {
-        return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
             let requisitionsTestFile = new Models_1.RequisitionsTestFile([]);
-            yield fs_1.readFile(this.fileTestPath, "utf-8", (error, data) => __awaiter(this, void 0, void 0, function* () {
-                requisitionsTestFile = yield JSON.parse(data);
-                yield this.verifyRequestTestListFile(requisitionsTestFile);
+            fs_1.readFile(this.fileTestPath, "utf-8", (error, data) => {
+                requisitionsTestFile = JSON.parse(data);
+                this.verifyRequestTestListFile(requisitionsTestFile);
                 resolve(requisitionsTestFile);
                 if (error) {
-                    throw new Error("not possible read request file config, complete error: " + error);
+                    reject(new Error("not possible read request file config, complete error: " + error));
                 }
-            }));
-        }));
+            });
+        });
     }
-    // This method read config file and converto to config object
+    // This method read config file and convert to config object
     static loadConfig() {
-        return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
             let config;
-            yield fs_1.readFile(this.fileConfigPath, "utf-8", (error, data) => __awaiter(this, void 0, void 0, function* () {
+            fs_1.readFile(this.fileConfigPath, "utf-8", (error, data) => {
                 if (error) {
-                    throw new Error("not possible read config file config, complete error: " + error);
+                    reject(new Error("not possible read config file config, complete error: " + error));
                 }
                 else {
-                    config = yield JSON.parse(data);
+                    config = JSON.parse(data);
                     resolve(config);
                 }
-            }));
-        }));
+            });
+        });
     }
     static verifyRequestTestListFile(requisitionsTestFile) {
         // vefirica se possui requisicoes

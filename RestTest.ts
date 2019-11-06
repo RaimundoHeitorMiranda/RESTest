@@ -55,6 +55,10 @@ export class RestTest {
 
     private static runTests(testsList: HttpTest[]): Promise<any> {
         let http = new HTTP(this.config);
+
+        setTimeout(() => {
+            
+        }, 100);
         return new Promise(async resolve => {
             
             for (let index = 0; index < testsList.length; index++) {

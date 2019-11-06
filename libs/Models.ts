@@ -65,9 +65,9 @@ export interface RequestConfig {
 
 export interface SecurityConfig {
     pathLogin: string,
-    userLogin: string,
-    passwordLogin: string,
+    login: any;
     headerKey: string;
+    token: string;
 }
 
 export interface AppConfig{
@@ -85,8 +85,8 @@ export enum HttpMethod {
  * The class that represents a result of test.
  */
 export class Result {
-    valid: boolean = true;
     request_verb_path?: string;
+    valid: boolean = true;
     request_error?: any;
     status_ok?: boolean;
     status_diff?:string;

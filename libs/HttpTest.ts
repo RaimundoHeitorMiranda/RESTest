@@ -2,26 +2,48 @@ import request = require('request');
 import { HttpTest, HttpMethod, Result, Config } from './Models';
 import { Comparator } from './Comparator';
 import { Response } from "request/index";
+import { isString } from 'util';
 
 export class HTTP {
 
     config: Config;
+    headerObj: any = {};
 
-    constructor(config : Config){
+    constructor(config : Config ){
         this.config = config;
+        this.headerObj['content-type'] = 'application/json';
+        
+        if(this.config.securityConfig.token){
+            this.headerObj[this.config.securityConfig.headerKey]= this.config.securityConfig.token;
+        }
+        
+        for(const att in this.config.requestConfig.headers){
+            this.headerObj[att] = this.config.requestConfig.headers[att];
+        }
+         
     }
 
 
     public async Test(req: HttpTest): Promise<Result> {
         
-
+        if(!(isString(this.headerObj[this.config.securityConfig.headerKey]))){
+            await this.getToken()
+            .then(
+                result => {
+                    this.headerObj[this.config.securityConfig.headerKey]= result;
+                }
+            )
+        }
 
         return new Promise((resolve,reject) => {
             const url = this.config.requestConfig.server +":" + this.config.requestConfig.port + req.requestTest.path;
 
             // GET
             if(req.requestTest.method === HttpMethod.GET){
-                request.get(url, async (error, response) => {
+                request.get(url,{
+                    headers: this.headerObj,
+                    json: true 
+                }, async (error, response) => {
                     await this.verifyTest(response ,error, req)
                     .then(result => {
                         resolve(result);
@@ -32,7 +54,7 @@ export class HTTP {
             } else if (req.requestTest.method === HttpMethod.POST) {
                 // let data = req.requestTest.body;
                 request.post(url,{
-                    headers: {'content-type': 'application/json'},
+                    headers: this.headerObj,
                     body: req.requestTest.content,
                     json: true
                 }, async (error, response) => {
@@ -46,7 +68,7 @@ export class HTTP {
             // PUT
             } else if (req.requestTest.method === HttpMethod.PUT) {
                 request.put(url,{
-                    headers: {'content-type': 'application/json'},
+                    headers: this.headerObj,
                     body: req.requestTest.content,
                     json: true
                 }, async (error, response) => {
@@ -56,7 +78,10 @@ export class HTTP {
                     });
                 });
             } else if (req.requestTest.method === HttpMethod.DELETE) {
-                request.delete(url, async (error, response) => {
+                request.delete(url,{
+                    headers: this.headerObj,
+                    json: true 
+                    }, async (error, response) => {
                    await this.verifyTest(response ,error, req)
                    .then(result => {
                        resolve(result);
@@ -118,6 +143,25 @@ export class HTTP {
                 resolve(resultCheck);
             }
         });
+    }
+
+    private getToken(): Promise<String>{
+        const url = this.config.requestConfig.server +":" + this.config.requestConfig.port + this.config.securityConfig.pathLogin;
+        
+        return new Promise((resolve, reject) => {
+            request.post(url,{
+                headers: this.headerObj,
+                body: this.config.securityConfig.login,
+                json: true
+            }, async (error, response) => {
+                if(error){
+                    reject(error);
+                }
+                
+                resolve(String(response.body.data.token));
+            });
+        })
+
     }
 
 }

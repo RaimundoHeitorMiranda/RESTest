@@ -59,7 +59,7 @@ class Comparator {
                 if (responseValues.lastIndexOf(key) != -1) {
                     // verifica se é um array
                     if (responseTest[key] instanceof Array) {
-                        yield this.comparateArrays(responseTest[key], response[key], errorResult, ownerPropertyName + "." + key)
+                        yield this.comparateArrays(response[key], responseTest[key], errorResult, ownerPropertyName + "." + key)
                             .then(result => {
                             errorResult = result;
                         });
@@ -96,7 +96,7 @@ class Comparator {
         return __awaiter(this, void 0, void 0, function* () {
             if (array1.length !== array2.length) {
                 errorResult.valid = false;
-                yield errorResult.valuesDiff.push("Array: " + ownerPropertyName + " have diferent lenght: " + array2.length + " is diferent of " + array1.length + "(expected)");
+                yield errorResult.valuesDiff.push("Array: " + ownerPropertyName + " have diferent lenght: " + array1.length + " is diferent of " + array2.length + "(expected)");
                 return errorResult;
             }
             else {

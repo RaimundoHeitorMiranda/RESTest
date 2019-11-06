@@ -11,17 +11,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const Models_1 = require("./Models");
 const Comparator_1 = require("./Comparator");
+const util_1 = require("util");
 class HTTP {
     constructor(config) {
+        this.headerObj = {};
         this.config = config;
+        this.headerObj['content-type'] = 'application/json';
+        if (this.config.securityConfig.token) {
+            this.headerObj[this.config.securityConfig.headerKey] = this.config.securityConfig.token;
+        }
+        for (const att in this.config.requestConfig.headers) {
+            this.headerObj[att] = this.config.requestConfig.headers[att];
+        }
     }
     Test(req) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!(util_1.isString(this.headerObj[this.config.securityConfig.headerKey]))) {
+                yield this.getToken()
+                    .then(result => {
+                    this.headerObj[this.config.securityConfig.headerKey] = result;
+                });
+            }
             return new Promise((resolve, reject) => {
                 const url = this.config.requestConfig.server + ":" + this.config.requestConfig.port + req.requestTest.path;
                 // GET
                 if (req.requestTest.method === Models_1.HttpMethod.GET) {
-                    request.get(url, (error, response) => __awaiter(this, void 0, void 0, function* () {
+                    request.get(url, {
+                        headers: this.headerObj,
+                        json: true
+                    }, (error, response) => __awaiter(this, void 0, void 0, function* () {
                         yield this.verifyTest(response, error, req)
                             .then(result => {
                             resolve(result);
@@ -32,7 +50,7 @@ class HTTP {
                 else if (req.requestTest.method === Models_1.HttpMethod.POST) {
                     // let data = req.requestTest.body;
                     request.post(url, {
-                        headers: { 'content-type': 'application/json' },
+                        headers: this.headerObj,
                         body: req.requestTest.content,
                         json: true
                     }, (error, response) => __awaiter(this, void 0, void 0, function* () {
@@ -45,7 +63,7 @@ class HTTP {
                 }
                 else if (req.requestTest.method === Models_1.HttpMethod.PUT) {
                     request.put(url, {
-                        headers: { 'content-type': 'application/json' },
+                        headers: this.headerObj,
                         body: req.requestTest.content,
                         json: true
                     }, (error, response) => __awaiter(this, void 0, void 0, function* () {
@@ -56,7 +74,10 @@ class HTTP {
                     }));
                 }
                 else if (req.requestTest.method === Models_1.HttpMethod.DELETE) {
-                    request.delete(url, (error, response) => __awaiter(this, void 0, void 0, function* () {
+                    request.delete(url, {
+                        headers: this.headerObj,
+                        json: true
+                    }, (error, response) => __awaiter(this, void 0, void 0, function* () {
                         yield this.verifyTest(response, error, req)
                             .then(result => {
                             resolve(result);
@@ -111,6 +132,21 @@ class HTTP {
                 resolve(resultCheck);
             }
         }));
+    }
+    getToken() {
+        const url = this.config.requestConfig.server + ":" + this.config.requestConfig.port + this.config.securityConfig.pathLogin;
+        return new Promise((resolve, reject) => {
+            request.post(url, {
+                headers: this.headerObj,
+                body: this.config.securityConfig.login,
+                json: true
+            }, (error, response) => __awaiter(this, void 0, void 0, function* () {
+                if (error) {
+                    reject(error);
+                }
+                resolve(String(response.body.data.token));
+            }));
+        });
     }
 }
 exports.HTTP = HTTP;
