@@ -14,6 +14,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const File_Reader_1 = __importDefault(require("./libs/File_Reader"));
 const HttpTest_1 = require("./libs/HttpTest");
 // Tratamento de erro, erro para o professor, erro para o aluno
+// imprimir primeiro os pontos seguidos dos detalhes -> ok
+// headers específicos para cada requisição
+// endereço específico para cada requisição
+// aceitar o nome de um arquivo como entrada, a priore apenas 1.
 class RestTest {
     constructor() {
     }
@@ -26,7 +30,7 @@ class RestTest {
                 console.log("-----------------ERROR: ", error);
                 throw error;
             });
-            yield File_Reader_1.default.loadRequisitionsTests()
+            yield File_Reader_1.default.loadRequisitionsTests(process.argv[2])
                 .then(result => {
                 this.testList = result.requisitionsTestList;
             }, error => {
@@ -67,26 +71,24 @@ RestTest.resultList = [];
 RestTest.testList = [];
 exports.RestTest = RestTest;
 RestTest.init().then(result => {
-    if (RestTest.detail()) {
-        console.log(result);
-    }
-    else {
-        let show = "";
-        result.forEach(result => {
-            if (result.valid) {
-                show = show + ".";
-            }
-            else if (result.request_error) {
-                show = show + "E";
-            }
-            else if (result.other) {
-                show = show + "?";
-            }
-            else {
-                show = show + "F";
-            }
-        });
+    let show = "";
+    result.forEach(result => {
+        if (result.valid) {
+            show = show + ".";
+        }
+        else if (result.request_error) {
+            show = show + "E";
+        }
+        else if (result.other) {
+            show = show + "?";
+        }
+        else {
+            show = show + "F";
+        }
+    });
+    setTimeout(() => {
         console.log(show);
-    }
+        console.log(result);
+    }, 10);
 });
 //# sourceMappingURL=RestTest.js.map

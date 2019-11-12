@@ -13,7 +13,7 @@ export default class File_Reader {
 
 
     // the path of files.
-    private static fileTestPath: string = `./requests.json`;
+    // private static fileTestPath: string = `./requests.json`;
     private static fileConfigPath: string =`./config.json`; 
 
     public constructor(){
@@ -21,10 +21,10 @@ export default class File_Reader {
     }
 
     // This method read file testes, verify and convert to tests objctes.
-    public static loadRequisitionsTests(): Promise<RequisitionsTestFile>{
+    public static loadRequisitionsTests(filenName:  string): Promise<RequisitionsTestFile>{
         return new Promise((resolve, reject) => {
             let requisitionsTestFile: RequisitionsTestFile = new RequisitionsTestFile([]);
-             readFile(this.fileTestPath, "utf-8", (error,data) => {
+             readFile("./" + filenName, "utf-8", (error,data) => {
                 requisitionsTestFile =  JSON.parse(data);
                  this.verifyRequestTestListFile(requisitionsTestFile);
                 resolve(requisitionsTestFile);

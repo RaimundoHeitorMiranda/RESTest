@@ -13,10 +13,11 @@ class File_Reader {
     constructor() {
     }
     // This method read file testes, verify and convert to tests objctes.
-    static loadRequisitionsTests() {
+    static loadRequisitionsTests(filenName) {
+        console.log(25, filenName);
         return new Promise((resolve, reject) => {
             let requisitionsTestFile = new Models_1.RequisitionsTestFile([]);
-            fs_1.readFile(this.fileTestPath, "utf-8", (error, data) => {
+            fs_1.readFile("./" + filenName, "utf-8", (error, data) => {
                 requisitionsTestFile = JSON.parse(data);
                 this.verifyRequestTestListFile(requisitionsTestFile);
                 resolve(requisitionsTestFile);
@@ -108,7 +109,7 @@ class File_Reader {
     }
 }
 // the path of files.
-File_Reader.fileTestPath = `./requests.json`;
+// private static fileTestPath: string = `./requests.json`;
 File_Reader.fileConfigPath = `./config.json`;
 exports.default = File_Reader;
 //# sourceMappingURL=File_Reader.js.map
