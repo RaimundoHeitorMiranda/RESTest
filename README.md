@@ -1,17 +1,24 @@
-**
+
 
 # RestTest é uma aplicação para testes automatizado de projetos e exercícios REST.
 
-**
+
 
 ## Instalação
-Para utilizar o RestTest basta ter o [NodeJs](https://nodejs.org/en/) instalado.
+Para utilizar o RestTest basta ter o [NodeJs](https://nodejs.org/en/) instalado e executar o seguinte comando 
+
+    npm i rest-test-tst
+
 ## Utilização
 O RestTest funciona utilizando dois arquivos, o [arquivo](https://github.com/RaimundoHeitorMiranda/RESTest/blob/master/requests.json) de requisições e o [arquivo](https://github.com/RaimundoHeitorMiranda/RESTest/blob/master/config.json) de configuração. Nas requisições é onde ficará os testes, nele o utilizador define quais requisições devem ser feitas e quais as respostas esperadas. O arquivo de configuração é onde configura-se o endereço do servidor a ser testado, porta, segurança e outras configurações.
 
 Para utilizar basta executar a o seguinte comando, com os arquivos previamente configurados: 
 
-    node ./builder/RestTest.js
+    node ./builder/RestTest.js requests.json
+   ou para quem for usuário do TST:
+
+    tst
+   OBS: o arquivo de configuração é lido automaticamente. Apenas o arquivo de testes deve ser colocado como parâmetro.
 
 ### Criando Tests
 Um teste é formado por uma requisição e uma resposta
@@ -65,7 +72,6 @@ O objeto de configuração define os atributos necessários para configurar o te
 - requestConfig.headers: any - que define o cabeçalho.
 - securityConfig.pathLogin :string - define o caminho do login.
 - securityConfig.login: object - é definido como um objeto que será enviado via POST para o path, neste objeto deverão conter as informações necessárias para a aquisição do token, como usuário e senha.
--  appConfig.detail: boolean - ativa/desativa detalhes do resultado do teste,
 - definido.headerKey: string - Nome da chave do cabeçalho onde deve ficar o token de acesso.
 
 Exemplo do arquivo de configuração:
@@ -76,8 +82,8 @@ Exemplo do arquivo de configuração:
 		    "server":"http://localhost",
 		    "port":"3000",
 		    "headers": {
-			    "aaaaaaaaa":"aaaaaa",
-			    "bbbbbbbbb":"bbbbbb"}
+			    "headerExemple":"headerExemplevalue"
+			    }
 	    },
     
 	    "securityConfig":{
@@ -86,24 +92,13 @@ Exemplo do arquivo de configuração:
 			    "user":"admin",
 			    "password":"admin"},
 		    "headerKey":"authorization"
-	    },
-
-	    "appConfig":{
-		    "detail":true
 	    }
     }
 
 ## Resultado
-O programa pode retornar o resultado de dua forma de acordo com o appConfig.detail,
-se `appConfig.detail == false` o resultado será retornado da seguinte forma:
+O programa retorna o resultado de da seguinte forma:
 
     F......FF
-
-caso o `appConfig.detail == true` o retorno será mais completo e exibirá o máximo de informações possível.
-exemplos de teste falho:
-
-Error nos valores dos atributos
-
     Result {
     valid: false,
     attributeExtra: [],
@@ -118,7 +113,8 @@ Error nos valores dos atributos
     },
 
 Error no Status de resposta e antributos faltando
-
+	
+    F......FF
     Result {
 	    valid: false,
 	    attributeExtra: [],
@@ -128,7 +124,7 @@ Error no Status de resposta e antributos faltando
 	    status_ok: false,
 	    status_diff: 'Expected 200 but was 201' 
     }, 
-
+Sendo a primeira linha para a integração com o TST e as demais linhas para um resultado mais detalhado.
 ## Contribuição
 Para contribuir basta editar os arquivos TypeScript e enviar um pullrequest.
 ## Build

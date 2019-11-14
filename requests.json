@@ -261,17 +261,6 @@
                 "body": {
                     "data": [
                       {
-                        "id": 6,
-                        "clientName": "string2",
-                        "clientCpf": "700.623.560-03",
-                        "clientPhones": "string2",
-                        "addressCity": "string2",
-                        "addressNumber": "string2",
-                        "addressStreet": "string2",
-                        "addressCep": "string2",
-                        "addressNeighborhood": "string2"
-                      },
-                      {
                         "id": 4,
                         "clientName": "string5",
                         "clientCpf": "284.239.830-05",
@@ -281,7 +270,18 @@
                         "addressStreet": "string5",
                         "addressCep": "string5",
                         "addressNeighborhood": "string5"
-                      }
+                      },
+                      {
+                        "id": 6,
+                        "clientName": "string2",
+                        "clientCpf": "700.623.560-03",
+                        "clientPhones": "string2",
+                        "addressCity": "string2",
+                        "addressNumber": "string2",
+                        "addressStreet": "string2",
+                        "addressCep": "string2",
+                        "addressNeighborhood": "string2"
+                      }                      
                     ],
                     "errors": []
                   }
@@ -308,7 +308,7 @@
                 "path": "/client/4"
             },
             "responseTest": {
-                "httpStatus":"200",
+                "httpStatus":"404",
                 "body":{
                     "status": 404,
                     "error": "Not Found",

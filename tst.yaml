@@ -1,0 +1,6 @@
+extensions: [js]
+
+tests:
+- type: script
+  script:  node ./node_modules/.bin/restest requests.json
+

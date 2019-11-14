@@ -14,7 +14,6 @@ class File_Reader {
     }
     // This method read file testes, verify and convert to tests objctes.
     static loadRequisitionsTests(filenName) {
-        console.log(25, filenName);
         return new Promise((resolve, reject) => {
             let requisitionsTestFile = new Models_1.RequisitionsTestFile([]);
             fs_1.readFile("./" + filenName, "utf-8", (error, data) => {

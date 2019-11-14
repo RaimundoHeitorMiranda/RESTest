@@ -2,20 +2,15 @@
     "requestConfig":{
         "server":"http://localhost",
         "port":"8080",
-        "headers": {"aaaaaaaaa":"aaaaaa",
-                    "bbbbbbbbb":"bbbbbb"}
+        "headers": {"header_exemple":"headae_exemple_value"}
     },
     "securityConfig":{
-        "pathLogin":"/login/token",
+        "pathLogin":"/login/",
         "login":{
-            "cpf": "117.896.100-10",
+            "user": "admin",
             "password": "admin"
           },
         "headerKey":"Authorization",
-        "token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlJPTEVfVEFTSyIsImNyZWF0ZWQiOjE1NzMwMDU1NTI1NDAsImV4cCI6MTU3MzYxMDM1Mn0.Zd1cUNVeXcXEAQkP15DaEpVScodDa-NBN06DSsqZxuEvMzUKfgNjRUuYxI6dhU-tp50szfbc9nis9LjjgcdfTw"
-    },
-    "appConfig":{
-        "detail":true
+        "token":null
     }
-
 }

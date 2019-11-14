@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import  File_Reader from './libs/File_Reader';
 import { HTTP } from './libs/HttpTest';
 import { Result, HttpTest, Config } from './libs/Models';

@@ -1,11 +1,15 @@
 {
-  "name": "Restest",
-  "version": "1.0.0",
-  "description": "The program to run authomatic tests related a Rest services.",
+  "name": "rest-test-tst",
+  "version": "1.0.6",
+  "description": "The program to run authomatic tests related a Rest services and integrate with TST plataform.",
   "main": "restTest.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "postinstall": "cp config.json $INIT_CWD | cp tst.yaml $INIT_CWD"
+  },
+  "bin": {
+    "restest": "./builder/RestTest.js"
   },
   "author": "Raimundo Heitor",
   "license": "ISC",
