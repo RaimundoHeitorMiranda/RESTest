@@ -43,6 +43,12 @@ class Comparator {
             yield responseTestValues.sort(this.sortFunction);
             // TODO fast test.
             // se os os tamanhos da lista forem diferentes -> false;
+            // troca os ids das respostas do teste para o id fornecido pelo servidor
+            responseTestValues.forEach(value => {
+                if (value == 'id') {
+                    responseTest.id = Models_1.IdManagement.get(responseTest.id);
+                }
+            });
             // Verifica se existe atributo sobrando.
             // verify if as attribute over.
             yield responseValues.forEach(key => {

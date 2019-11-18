@@ -1,4 +1,4 @@
-import { ResponseTest, Result } from "./Models";
+import { ResponseTest, Result, IdManagement } from './Models';
 import { Response } from "request";
 
 export class Comparator {
@@ -48,6 +48,13 @@ export class Comparator {
 
         // TODO fast test.
         // se os os tamanhos da lista forem diferentes -> false;
+
+        // troca os ids das respostas do teste para o id fornecido pelo servidor
+        responseTestValues.forEach(value => {
+            if(value == 'id'){
+                responseTest.id = IdManagement.get(responseTest.id);
+            }
+        })
 
         // Verifica se existe atributo sobrando.
         // verify if as attribute over.

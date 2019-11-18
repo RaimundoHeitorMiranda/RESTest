@@ -1,5 +1,5 @@
 import request = require('request');
-import { HttpTest, HttpMethod, Result, Config } from './Models';
+import { HttpTest, HttpMethod, Result, Config, IdMapper, IdManagement } from './Models';
 import { Comparator } from './Comparator';
 import { Response } from "request/index";
 import { isString } from 'util';
@@ -8,6 +8,7 @@ export class HTTP {
 
     config: Config;
     headerObj: any = {};
+    
 
     constructor(config : Config ){
         this.config = config;
@@ -32,11 +33,18 @@ export class HTTP {
                 result => {
                     this.headerObj[this.config.securityConfig.headerKey]= result;
                 }
-            )
-        }
+                )
+            }
+            
+        let url = '';
+        
+        await this.pathIdProcessor(req.requestTest.path)
+        .then(result => {
+            
+            url = this.config.requestConfig.server +":" + this.config.requestConfig.port + result;
+        });
 
         return new Promise((resolve,reject) => {
-            const url = this.config.requestConfig.server +":" + this.config.requestConfig.port + req.requestTest.path;
 
             // GET
             if(req.requestTest.method === HttpMethod.GET){
@@ -52,13 +60,15 @@ export class HTTP {
             
             // POST
             } else if (req.requestTest.method === HttpMethod.POST) {
-                // let data = req.requestTest.body;
                 request.post(url,{
                     headers: this.headerObj,
                     body: req.requestTest.content,
                     json: true
                 }, async (error, response) => {
-                    
+                        if(typeof response.body === 'string'){
+                            response.body = JSON.parse(response.body);
+                        }
+                        this.idProcessor(response.body,req.responseTest.body);
                         await this.verifyTest(response ,error, req)
                     .then(result => {
                         resolve(result);
@@ -121,6 +131,7 @@ export class HTTP {
                 if(typeof responseClient.body === 'string'){
                     responseClient.body = JSON.parse(responseClient.body);
                 }
+
               
                 if(request.responseTest.body !== undefined && request.responseTest.body !== null){
                     comparator.BodyComparator(responseClient.body,request.responseTest.body,resultCheck)
@@ -162,6 +173,45 @@ export class HTTP {
             });
         })
 
+    }
+
+    private idProcessor(clientResponseBody: any,responseTestBody: any) {
+        if(clientResponseBody.data){
+            let id = new IdMapper(responseTestBody.data.id,clientResponseBody.data.id);
+            IdManagement.push(id)
+            
+        }
+
+    }
+
+    private async pathIdProcessor(path: string): Promise<string>{
+        // pegar todos os número da requisição
+        let ids = path.split("/").filter(Number).map(str => Number.parseInt(str));
+
+        if(ids.length > 0){
+            for (let index = 0; index < ids.length; index++) {
+                const id = ids[index];
+                
+                if(IdManagement.exists(id)){
+                    path = path.replace(String(id),String(IdManagement.get(id)));
+                }
+                
+                // this.idMapper.forEach(idM => {
+                //     console.log(199, id, idM);
+                //     if(id === idM.idFake){
+                //         path = path.replace(String(id),String(idM.idReal));
+                //         console.log(191,'mapeamento->',id,idM.idReal, path);
+                        
+                //     }
+                // });
+            }
+            
+            return path;
+        } else {
+            return path;
+        }
+
+        
     }
 
 }

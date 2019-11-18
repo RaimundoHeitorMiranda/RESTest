@@ -49,8 +49,6 @@ class RestTest {
     }
     static runTests(testsList) {
         let http = new HttpTest_1.HTTP(this.config);
-        setTimeout(() => {
-        }, 100);
         return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
             for (let index = 0; index < testsList.length; index++) {
                 const element = testsList[index];

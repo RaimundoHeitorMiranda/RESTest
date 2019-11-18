@@ -46,6 +46,41 @@ var HttpMethod;
     HttpMethod["DELETE"] = "DELETE";
     HttpMethod["POST"] = "POST";
 })(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
+class IdMapper {
+    constructor(idFake, idReal) {
+        this.idFake = idFake;
+        this.idReal = idReal;
+    }
+}
+exports.IdMapper = IdMapper;
+class IdManagement {
+    constructor() {
+    }
+    static exists(idFake) {
+        for (let index = 0; index < this.ids.length; index++) {
+            const IdMapper = this.ids[index];
+            if (idFake === IdMapper.idFake) {
+                return true;
+            }
+            if (index === this.ids.length - 1) {
+                return false;
+            }
+        }
+    }
+    static get(idFake) {
+        for (let index = 0; index < this.ids.length; index++) {
+            const IdMapper = this.ids[index];
+            if (idFake === IdMapper.idFake) {
+                return IdMapper.idReal;
+            }
+        }
+    }
+    static push(idMapper) {
+        this.ids.push(idMapper);
+    }
+}
+IdManagement.ids = [];
+exports.IdManagement = IdManagement;
 /** A classe que representa o resultado de um teste.
  * The class that represents a result of test.
  */

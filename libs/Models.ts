@@ -81,6 +81,49 @@ export enum HttpMethod {
     POST = "POST"
 }
 
+export class IdMapper {
+    idFake: number;
+    idReal: number;
+    constructor(idFake: number,idReal: number){
+        this.idFake = idFake;
+        this.idReal = idReal;
+    }
+}
+
+export class IdManagement {
+    static ids: IdMapper[] = [];
+
+    constructor(){
+        
+    }
+
+    static exists(idFake: number): any {
+        for (let index = 0; index < this.ids.length; index++) {
+            const IdMapper = this.ids[index];
+            if(idFake === IdMapper.idFake) {
+                return true;
+            }
+
+            if(index === this.ids.length -1){
+             return false;   
+            }
+        }
+    }
+
+    static get(idFake: number): any {
+        for (let index = 0; index < this.ids.length; index++) {
+            const IdMapper = this.ids[index];
+            if(idFake === IdMapper.idFake) {
+                return IdMapper.idReal;
+            }
+        }
+    }
+
+    static push(idMapper:IdMapper): any {
+        this.ids.push(idMapper);
+    }
+}
+
 /** A classe que representa o resultado de um teste.
  * The class that represents a result of test.
  */

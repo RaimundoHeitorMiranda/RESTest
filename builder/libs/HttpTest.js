@@ -32,8 +32,12 @@ class HTTP {
                     this.headerObj[this.config.securityConfig.headerKey] = result;
                 });
             }
+            let url = '';
+            yield this.pathIdProcessor(req.requestTest.path)
+                .then(result => {
+                url = this.config.requestConfig.server + ":" + this.config.requestConfig.port + result;
+            });
             return new Promise((resolve, reject) => {
-                const url = this.config.requestConfig.server + ":" + this.config.requestConfig.port + req.requestTest.path;
                 // GET
                 if (req.requestTest.method === Models_1.HttpMethod.GET) {
                     request.get(url, {
@@ -48,12 +52,15 @@ class HTTP {
                     // POST
                 }
                 else if (req.requestTest.method === Models_1.HttpMethod.POST) {
-                    // let data = req.requestTest.body;
                     request.post(url, {
                         headers: this.headerObj,
                         body: req.requestTest.content,
                         json: true
                     }, (error, response) => __awaiter(this, void 0, void 0, function* () {
+                        if (typeof response.body === 'string') {
+                            response.body = JSON.parse(response.body);
+                        }
+                        this.idProcessor(response.body, req.responseTest.body);
                         yield this.verifyTest(response, error, req)
                             .then(result => {
                             resolve(result);
@@ -146,6 +153,37 @@ class HTTP {
                 }
                 resolve(String(response.body.data.token));
             }));
+        });
+    }
+    idProcessor(clientResponseBody, responseTestBody) {
+        if (clientResponseBody.data) {
+            let id = new Models_1.IdMapper(responseTestBody.data.id, clientResponseBody.data.id);
+            Models_1.IdManagement.push(id);
+        }
+    }
+    pathIdProcessor(path) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // pegar todos os número da requisição
+            let ids = path.split("/").filter(Number).map(str => Number.parseInt(str));
+            if (ids.length > 0) {
+                for (let index = 0; index < ids.length; index++) {
+                    const id = ids[index];
+                    if (Models_1.IdManagement.exists(id)) {
+                        path = path.replace(String(id), String(Models_1.IdManagement.get(id)));
+                    }
+                    // this.idMapper.forEach(idM => {
+                    //     console.log(199, id, idM);
+                    //     if(id === idM.idFake){
+                    //         path = path.replace(String(id),String(idM.idReal));
+                    //         console.log(191,'mapeamento->',id,idM.idReal, path);
+                    //     }
+                    // });
+                }
+                return path;
+            }
+            else {
+                return path;
+            }
         });
     }
 }

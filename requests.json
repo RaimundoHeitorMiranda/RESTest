@@ -25,7 +25,7 @@
                     "addressNumber": "string",
                     "addressStreet": "string",
                     "clientCpf": "284.239.830-05",
-                    "clientName": "string",
+                    "clientName": "Raimundo",
                     "clientPhones": "string"
                   }
             },
@@ -33,8 +33,8 @@
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 4,
-                      "clientName": "string",
+                      "id": 10,
+                      "clientName": "Heitor",
                       "clientCpf": "284.239.830-05",
                       "clientPhones": "string",
                       "addressCity": "string",
@@ -58,7 +58,7 @@
                 "body": {
                     "data": [
                       {
-                        "id": 4,
+                        "id": 10,
                         "clientName": "string",
                         "clientCpf": "284.239.830-05",
                         "clientPhones": "string",
@@ -93,7 +93,7 @@
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 6,
+                      "id": 20,
                       "clientName": "string2",
                       "clientCpf": "700.623.560-03",
                       "clientPhones": "string2",
@@ -118,7 +118,7 @@
                 "body": {
                     "data": [
                       {
-                        "id": 4,
+                        "id": 10,
                         "clientName": "string",
                         "clientCpf": "284.239.830-05",
                         "clientPhones": "string",
@@ -129,7 +129,7 @@
                         "addressNeighborhood": "string"
                       },
                       {
-                        "id": 6,
+                        "id": 20,
                         "clientName": "string2",
                         "clientCpf": "700.623.560-03",
                         "clientPhones": "string2",
@@ -148,13 +148,13 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "/client/4"
+                "path": "/client/10"
             },
             "responseTest": {
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 4,
+                      "id": 10,
                       "clientName": "string",
                       "clientCpf": "284.239.830-05",
                       "clientPhones": "string",
@@ -172,13 +172,13 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "/client/6"
+                "path": "/client/20"
             },
             "responseTest": {
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 6,
+                      "id": 20,
                       "clientName": "string2",
                       "clientCpf": "700.623.560-03",
                       "clientPhones": "string2",
@@ -196,7 +196,7 @@
         {
             "requestTest": {
                 "method": "PUT",
-                "path": "/client/4",
+                "path": "/client/10",
                 "content": {
                     "addressCep": "string5",
                     "addressCity": "string5",
@@ -212,7 +212,7 @@
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 4,
+                      "id": 10,
                       "clientName": "string5",
                       "clientCpf": "284.239.830-05",
                       "clientPhones": "string5",
@@ -230,13 +230,13 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "/client/4"
+                "path": "/client/10"
             },
             "responseTest": {
                 "httpStatus":"200",
                 "body":{
                     "data": {
-                      "id": 4,
+                      "id": 10,
                       "clientName": "string5",
                       "clientCpf": "284.239.830-05",
                       "clientPhones": "string5",
@@ -261,7 +261,7 @@
                 "body": {
                     "data": [
                       {
-                        "id": 4,
+                        "id": 10,
                         "clientName": "string5",
                         "clientCpf": "284.239.830-05",
                         "clientPhones": "string5",
@@ -272,7 +272,7 @@
                         "addressNeighborhood": "string5"
                       },
                       {
-                        "id": 6,
+                        "id": 20,
                         "clientName": "string2",
                         "clientCpf": "700.623.560-03",
                         "clientPhones": "string2",
@@ -291,7 +291,7 @@
         {
             "requestTest": {
                 "method": "DELETE",
-                "path": "/client/4"
+                "path": "/client/10"
             },
             "responseTest": {
                 "httpStatus":"200",
@@ -305,15 +305,15 @@
         {
             "requestTest": {
                 "method": "GET",
-                "path": "/client/4"
+                "path": "/client/10"
             },
             "responseTest": {
                 "httpStatus":"404",
                 "body":{
                     "status": 404,
                     "error": "Not Found",
-                    "message": "Client de id: 4 não encontrado.",
-                    "path": "/client/4"
+                    "message": "Client de id: 10 não encontrado.",
+                    "path": "/client/10"
                   }
             }
 
@@ -328,7 +328,7 @@
                 "body": {
                     "data": [
                       {
-                        "id": 6,
+                        "id": 20,
                         "clientName": "string2",
                         "clientCpf": "700.623.560-03",
                         "clientPhones": "string2",

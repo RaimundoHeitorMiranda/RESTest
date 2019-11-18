@@ -2,15 +2,20 @@
     "requestConfig":{
         "server":"http://localhost",
         "port":"8080",
-        "headers": {"header_exemple":"headae_exemple_value"}
+        "headers": {"aaaaaaaaa":"aaaaaa",
+                    "bbbbbbbbb":"bbbbbb"}
     },
     "securityConfig":{
-        "pathLogin":"/login/",
+        "pathLogin":"/login/token",
         "login":{
-            "user": "admin",
+            "cpf": "117.896.100-10",
             "password": "admin"
           },
         "headerKey":"Authorization",
         "token":null
+    },
+    "appConfig":{
+        "detail":true
     }
+
 }
