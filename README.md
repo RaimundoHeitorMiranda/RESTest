@@ -1,5 +1,6 @@
 
 
+
 # RestTest é uma aplicação para testes automatizado de projetos e exercícios REST.
 
 
@@ -26,8 +27,8 @@ A requisição é formada pelos seguintes atributos:
 
  - Method - Que define o método da requisição, PUT,POST,DELETE,GET
  - path - qual o caminho da requisição(sem o endereço do servidor)
- - headers - cabeçalho
- - body - conteúdo que deseja enviar na requisição.
+ - headers - cabeçalho (opcional)
+ - content - conteúdo que deseja enviar na requisição, necessário de acordo com o tipo de requisição.
 
 Exemplo: 
 
@@ -35,11 +36,11 @@ Exemplo:
 	    "method": "DELETE",
 	    "path": "/produtos/986",
 	    "headers": null,
-	    "body": null    
+	    "content": null    
     }
 
 O teste é formado por:
- - httpStatus - Que representa o status de resposta da requisição  em formato numérico , 200,404,500...
+ - httpStatus - Que representa o status de resposta da requisição  em formato numérico , 200, 404, 500...
 - Body - que representa o conteúdo da resposta
  
  Exemplo:
@@ -65,6 +66,35 @@ Exemplo de um teste completo:
 	    }
     },
 
+## Lidando com Identificadores
+Em toda requisição POST, de adição de um recurso, na resposta do teste(responseTest.body) deve obrigatoriamente tem um identificador(id), esse identificador falso ira mapear o identificador real retornado pelo servidor, a a partir daí , sempre que em um path ou no corpo de uma resposta tiver o id falso ele será trocado pelo id real.
+Exemplo:
+
+    {
+	    "requestTest": {
+	    "method": "POST",
+	    "path": "/produtos",
+	    "headers": null,
+	    "body": {
+		    "id": 10,
+		    "nome": "Tapioca",
+		    "valor": 2
+		    }
+	    },
+    
+	    "responseTest": {
+		    "httpStatus":"201",
+		    "body":{
+			    "id": 10,
+			    "nome": "Tapioca",
+			    "valor": 2
+		    }
+	    }
+    }
+
+Nesse caso, o id 10 irá mapear o valor do id real retornado pelo servidor. A partir disso, toda requisição que tiver o valor 10, será trocada pelo valor real do servidor.
+
+> GET /produtos/10(id falso) -> /produtos/234234(id real)
 ## Configuração
 O objeto de configuração define os atributos necessários para configurar o testes, sendo eles:
 - requestConfig.server: string - que define o endereço do servidor a ser testado, por exemplo, http://www.minhaapi.com .
@@ -112,7 +142,7 @@ O programa retorna o resultado de da seguinte forma:
     status_ok: true 
     },
 
-Error no Status de resposta e antributos faltando
+Error no Status de resposta e ausência de atributos 
 	
     F......FF
     Result {
@@ -125,6 +155,7 @@ Error no Status de resposta e antributos faltando
 	    status_diff: 'Expected 200 but was 201' 
     }, 
 Sendo a primeira linha para a integração com o TST e as demais linhas para um resultado mais detalhado.
+
 ## Contribuição
 Para contribuir basta editar os arquivos TypeScript e enviar um pullrequest.
 ## Build
